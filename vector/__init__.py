@@ -3,6 +3,7 @@ class Vector(object):
         try:
             if not coordinates:
                 raise ValueError
+
             self.coordinates = tuple(coordinates)
             self.dimension = len(coordinates)
 
@@ -17,3 +18,15 @@ class Vector(object):
 
     def __eq__(self, v):
         return self.coordinates == v.coordinates
+
+    def plus(self, v):
+        coordinates = [x + y for x, y in zip(self.coordinates, v.coordinates)]
+        return Vector(coordinates)
+
+    def minus(self, v):
+        coordinates = [x - y for x, y in zip(self.coordinates, v.coordinates)]
+        return Vector(coordinates)
+
+    def times_scalar(self, c):
+        coordinates = [c * x for x in self.coordinates]
+        return Vector(coordinates)
