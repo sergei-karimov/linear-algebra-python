@@ -1,7 +1,9 @@
-from math import sqrt
+from math import sqrt, acos, pi
 
 
 class Vector(object):
+    CANNOT_NORMALIZE_ZERO_VECTOR = "Cannot normalize the zero vector"
+
     def __init__(self, coordinates):
         try:
             if not coordinates:
@@ -43,4 +45,26 @@ class Vector(object):
             magnitude = self.magnitude()
             return self.times_scalar(1./magnitude)
         except ZeroDivisionError:
-            raise Exception("Cannot normalize the zero vector")
+            raise Exception(self.CANNOT_NORMALIZE_ZERO_VECTOR)
+
+    def dot(self, v):
+        return sum([x * y for x, y in zip(self.coordinates, v.coordinates)])
+
+    def angle_with(self, v, in_degrees=False):
+        try:
+            u1 = self.normalized()
+            u2 = v.normalized()
+
+            angle_in_radians = acos(u1.dot(u2))
+
+            if in_degrees:
+                degrees_per_radian = 180. / pi
+                return angle_in_radians * degrees_per_radian
+            else:
+                return angle_in_radians
+
+        except Exception as ex:
+            if str(ex) == self.CANNOT_NORMALIZE_ZERO_VECTOR:
+                raise Exception("Cannot compute an angle with the zero vector")
+            else:
+                raise ex

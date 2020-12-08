@@ -82,3 +82,33 @@ class TestVector(TestCase):
         direction = v.normalized()
         direction = Vector([round(x, 3) for x in direction.coordinates])
         self.assertEqual(True, Vector([0.34, 0.53, -0.777]) == direction)
+
+    def test_first_dot_example(self):
+        first_vector = Vector([1, 2, 3])
+        second_vector = Vector([3, 2, 1])
+        result = round(first_vector.dot(second_vector), 3)
+        self.assertEqual(10, result)
+
+    def test_second_dot_example(self):
+        first_vector = Vector([7.887, 4.138])
+        second_vector = Vector([-8.802, 6.776])
+        result = round(first_vector.dot(second_vector), 3)
+        self.assertEqual(-41.382, result)
+
+    def test_third_dot_example(self):
+        first_vector = Vector([-5.955, -4.904, -1.874])
+        second_vector = Vector([-4.496, -8.755, 7.103])
+        result = round(first_vector.dot(second_vector), 3)
+        self.assertEqual(56.397, result)
+
+    def test_first_angle_example(self):
+        first_vector = Vector([3.183, -7.627])
+        second_vector = Vector([-2.668, 5.319])
+        result = round(first_vector.angle_with(second_vector), 3)
+        self.assertEqual(3.072, result)
+
+    def test_second_angle_example(self):
+        first_vector = Vector([7.35, 0.221, 5.188])
+        second_vector = Vector([2.751, 8.259, 3.985])
+        result = round(first_vector.angle_with(second_vector, True), 3)
+        self.assertEqual(60.276, result)
